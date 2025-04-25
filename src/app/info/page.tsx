@@ -3,7 +3,7 @@ export default function InfoPage() {
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8">Información del proyecto</h1>
 
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+      <div className="card-riot rounded-lg shadow-md p-6 mb-8">
         <h2 className="text-2xl font-semibold mb-4">Sobre Fireplay</h2>
         <p className="mb-4">
           Fireplay es una aplicación web moderna desarrollada como proyecto educativo para demostrar el uso de
@@ -16,7 +16,7 @@ export default function InfoPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+      <div className="card-riot rounded-lg shadow-md p-6 mb-8">
         <h2 className="text-2xl font-semibold mb-4">Tecnologías utilizadas</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>
@@ -41,7 +41,7 @@ export default function InfoPage() {
         </ul>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="card-riot rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-semibold mb-4">Objetivos del proyecto</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>Demostrar el uso de Next.js con App Router y Server Components.</li>

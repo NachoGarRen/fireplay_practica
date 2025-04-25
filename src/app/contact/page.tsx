@@ -61,11 +61,11 @@ export default function ContactPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="card-riot rounded-lg shadow-md p-6">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 mb-2">
-              Nombre
+            <label htmlFor="name" className="block text-gray-300 mb-2">
+            <strong>Nombre</strong>
             </label>
             <input
               type="text"
@@ -78,8 +78,8 @@ export default function ContactPage() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 mb-2">
-              Correo electrónico
+            <label htmlFor="email" className="block text-gray-300 mb-2">
+            <strong>Correo electrónico</strong>
             </label>
             <input
               type="email"
@@ -92,8 +92,8 @@ export default function ContactPage() {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="message" className="block text-gray-700 mb-2">
-              Mensaje
+            <label htmlFor="message" className="block text-gray-300 mb-2">
+            <strong>Mensaje</strong>
             </label>
             <textarea
               id="message"
@@ -108,7 +108,7 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            className="w-full cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
             {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
@@ -116,7 +116,7 @@ export default function ContactPage() {
       </div>
 
       <div className="mt-8 grid md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="card-riot rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Información de contacto</h2>
           <p className="mb-2">
             <strong>Email:</strong> info@fireplay.com
@@ -129,7 +129,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="card-riot rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Horario de atención</h2>
           <p className="mb-2">
             <strong>Lunes a Viernes:</strong> 9:00 - 18:00

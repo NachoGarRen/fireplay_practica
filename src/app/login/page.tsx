@@ -2,10 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { signIn } from "../../lib/auth"
+import { useAuth } from "../../hooks/useAuth"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -13,6 +14,17 @@ export default function LoginPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { user } = useAuth()
+
+  const redirect = searchParams.get("redirect") || "/games"
+
+  useEffect(() => {
+    // Si el usuario ya está autenticado, redirigir
+    if (user) {
+      router.push(redirect)
+    }
+  }, [user, router, redirect])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,7 +35,9 @@ export default function LoginPage() {
       const result = await signIn(email, password)
 
       if (result.success) {
-        router.push("/games")
+        // Redirigir a la página guardada o a games por defecto
+        const savedRedirect = sessionStorage.getItem("redirectAfterLogin")
+        router.push(savedRedirect || redirect)
       } else {
         setError(result.error || "Error al iniciar sesión")
       }
@@ -35,14 +49,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto my-12 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h1>
+    <div className="max-w-md mx-auto my-12 p-6 card-riot">
+      <h1 className="text-2xl font-bold mb-6 text-center title-riot">INICIAR SESIÓN</h1>
 
-      {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">{error}</div>}
+      {error && <div className="mb-6 p-4 bg-red-900 bg-opacity-50 text-white rounded-md">{error}</div>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-gray-300 mb-2">
             Correo electrónico
           </label>
           <input
@@ -50,13 +64,13 @@ export default function LoginPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
             required
           />
         </div>
 
         <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 mb-2">
+          <label htmlFor="password" className="block text-gray-300 mb-2">
             Contraseña
           </label>
           <input
@@ -64,24 +78,23 @@ export default function LoginPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600 text-white"
             required
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-        >
-          {loading ? "Iniciando sesión..." : "Iniciar sesión"}
+        <button type="submit" disabled={loading} className="w-full btn-riot">
+          {loading ? "Iniciando sesión..." : "INICIAR SESIÓN"}
         </button>
       </form>
 
-      <div className="mt-4 text-center">
-        <p>
+      <div className="mt-6 text-center">
+        <p className="text-gray-400">
           ¿No tienes cuenta?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
+          <Link
+            href={`/register?redirect=${encodeURIComponent(redirect)}`}
+            className="text-red-600 hover:text-red-500 transition-colors"
+          >
             Regístrate
           </Link>
         </p>

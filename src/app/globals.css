@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #2563eb;
-  --color-secondary: #9333ea;
+:root {
+  --color-primary: #d13639;
+  --color-secondary: #111111;
+  --color-accent: #ffce1f;
+  --color-background: #0a0a0c;
+  --color-surface: #1e1e2e;
+  --color-text: #ffffff;
+  --color-text-secondary: #8a8a8a;
   --spacing-unit: 1rem;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 /* Animaciones */
@@ -23,4 +30,129 @@ body {
 
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Botones estilo Riot */
+.btn-riot {
+  @apply px-6 py-3 font-bold uppercase tracking-wider text-sm transition-all duration-300;
+  background-color: var(--color-primary);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-riot:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s;
+  z-index: -1;
+}
+
+.btn-riot:hover:before {
+  left: 100%;
+}
+
+.btn-riot-outline {
+  @apply px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 transition-all duration-300;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-riot-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Tarjetas estilo Riot */
+.card-riot {
+  @apply rounded-lg overflow-hidden transition-all duration-300;
+  background-color: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-riot:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar estilo Riot */
+.navbar-riot {
+  @apply py-4 px-6;
+  background-color: rgba(10, 10, 12, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Secciones con fondo diagonal */
+.diagonal-section {
+  position: relative;
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.diagonal-section:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, transparent 50%);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* Títulos estilo Riot */
+.title-riot {
+  @apply font-bold uppercase tracking-wider;
+  position: relative;
+  display: inline-block;
+}
+
+.title-riot:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-primary);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b02e31;
 }

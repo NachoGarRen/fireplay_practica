@@ -62,12 +62,12 @@ export default function AddToFavoritesButton({ gameId, game }: AddToFavoritesBut
       onClick={handleToggleFavorite}
       disabled={isLoading}
       className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md transition ${
-        isFavorite ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+        isFavorite ? "bg-red-900 text-white hover:bg-red-800" : "bg-gray-800 text-gray-300 hover:bg-gray-700"
       }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
+        className={`h-5 w-5 ${isFavorite ? "text-red-500" : ""}`}
         fill={isFavorite ? "currentColor" : "none"}
         viewBox="0 0 24 24"
         stroke="currentColor"

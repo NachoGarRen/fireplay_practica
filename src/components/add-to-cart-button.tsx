@@ -3,26 +3,34 @@
 import { useState, useEffect } from "react"
 import { addToCart, getCart } from "../lib/cart"
 import type { Game } from "../types/games.types"
+import { useAuth } from "../hooks/useAuth"
 
 interface AddToCartButtonProps {
   game: Game
 }
 
 export default function AddToCartButton({ game }: AddToCartButtonProps) {
+  const { user } = useAuth()
   const [isInCart, setIsInCart] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
 
   useEffect(() => {
-    const cart = getCart()
-    const existingItem = cart.find((item) => item.id === game.id)
-    setIsInCart(!!existingItem)
-  }, [game.id])
+    if (user) {
+      const cart = getCart(user.uid)
+      const existingItem = cart.find((item) => item.id === game.id)
+      setIsInCart(!!existingItem)
+    } else {
+      const cart = getCart("")
+      const existingItem = cart.find((item) => item.id === game.id)
+      setIsInCart(!!existingItem)
+    }
+  }, [game.id, user])
 
   const handleAddToCart = () => {
     setIsAdding(true)
 
     // Añadir al carrito con precio ficticio
-    addToCart(game, 1, 59.99)
+    addToCart(game, 1, 59.99, user?.uid || "")
 
     setIsInCart(true)
 
@@ -35,7 +43,7 @@ export default function AddToCartButton({ game }: AddToCartButtonProps) {
     <button
       onClick={handleAddToCart}
       disabled={isAdding}
-      className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition flex items-center justify-center gap-2"
+      className="flex-1 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition flex items-center justify-center gap-2"
     >
       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path

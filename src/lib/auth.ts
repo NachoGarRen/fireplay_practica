@@ -9,6 +9,7 @@ import {
   type User,
 } from "firebase/auth"
 import { auth } from "../firebase/firebase"
+import { migrateGuestCart } from "./cart"
 
 // Registro de usuario
 export const registerUser = async (email: string, password: string, displayName: string) => {
@@ -19,6 +20,9 @@ export const registerUser = async (email: string, password: string, displayName:
       await updateProfile(userCredential.user, {
         displayName: displayName,
       })
+
+      // Migrar carrito de invitado a usuario
+      migrateGuestCart(userCredential.user.uid)
     }
     return { success: true, user: userCredential.user }
   } catch (error: any) {
@@ -33,6 +37,10 @@ export const registerUser = async (email: string, password: string, displayName:
 export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
+
+    // Migrar carrito de invitado a usuario
+    migrateGuestCart(userCredential.user.uid)
+
     return { success: true, user: userCredential.user }
   } catch (error: any) {
     return {
